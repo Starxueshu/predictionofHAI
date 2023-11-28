@@ -4,7 +4,7 @@ import joblib as jl
 import pandas as pd
 import streamlit as st
 
-st.header("An interactive artificial intelligence tool to stratify the risk of hospital-acquired infection in geriatric hip fracture: a national cohort study")
+st.header("An interactive artificial intelligence application to stratify the risk of hospital-acquired infection in geriatric hip fracture: a national cohort study")
 st.sidebar.title("Parameters Selection Panel")
 st.sidebar.markdown("Picking up parameters")
 
@@ -44,18 +44,18 @@ if st.button("Submit"):
     # Get prediction
     prediction = rf_clf.predict_proba(x)[0, 1]
         # Output prediction
-    st.text(f"Probability of hospital-acquired infection: {'{:.2%}'.format(round(prediction, 5))}")
+    st.text(f"Predicted probability of HAI: {'{:.2%}'.format(round(prediction, 5))}")
     if prediction < 0.526:
         st.markdown('Risk stratification:')
-        st.text(f"low-risk group")
+        st.success(f"low-risk group")
     else:
         st.markdown('Risk stratification:')
-        st.text(f"High-risk group")
+        st.error(f"High-risk group")
     if prediction < 0.526:
-        st.markdown('Therapeutic recommendation:')
+        st.success('Therapeutic recommendation:')
         st.markdown(f"For low-risk individuals, the AI tool’s predictions can provide reassurance and guide clinical management accordingly. While preventive measures should still be in place for all patients, the focus may be more on general infection control practices rather than targeted interventions. This could include routine hand hygiene, appropriate antimicrobial use, and adherence to standard infection prevention protocols.")
     else:
-        st.markdown('Therapeutic recommendation:')
+        st.error('Therapeutic recommendation:')
         st.markdown(f"For high-risk individuals identified by the AI tool, healthcare providers can implement targeted preventive measures to reduce the risk of HAI. This may involve avoiding invasive procedures like urinary catheterization unless absolutely necessary, as well as implementing strict infection control practices and removing catheters as soon as possible, if appropriate. Additionally, healthcare providers can prioritize hand hygiene, antimicrobial stewardship, and surveillance programs to minimize the risk of infections.")
 
 st.subheader('AI information')
